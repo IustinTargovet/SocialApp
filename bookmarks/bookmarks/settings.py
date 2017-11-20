@@ -117,3 +117,9 @@ EMAIL_HOST_USER = 'django.bot1@gmail.com'
 EMAIL_HOST_PASSWORD = 'lol000lol'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+AUTHENTICATION_BACKENDS = (
+
+        'django.contrib.auth.backends.ModelBackend',
+        'account.authentication.EmailAuthBackend'
+)
