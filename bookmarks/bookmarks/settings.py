@@ -14,7 +14,9 @@ SECRET_KEY = '1t05^jqp^j4x42th_$)wq1j!1m1edj3+a0a*^qqz9s*g=0%#1('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'mysite.com'
+]
 
 
 # Application definition
@@ -27,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
 
 ]
 
@@ -38,6 +41,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'bookmarks.urls'
@@ -53,6 +57,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -106,9 +112,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 from django.core.urlresolvers import reverse_lazy
 
+
+
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 LOGIN_URL = reverse_lazy('login')
 LOGIN_URL = reverse_lazy('logout')
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -121,5 +130,10 @@ EMAIL_USE_TLS = True
 AUTHENTICATION_BACKENDS = (
 
         'django.contrib.auth.backends.ModelBackend',
-        'account.authentication.EmailAuthBackend'
+        'account.authentication.EmailAuthBackend',
+
+        'social_core.backends.facebook.FacebookOAuth2'
 )
+
+SOCIAL_AUTH_FACEBOOK_KEY = '145631609496453'
+SOCIAL_AUTH_FACEBOOK_SECRET = '3c5c733013699014fea384f81a4f0c4a'
